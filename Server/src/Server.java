@@ -2,7 +2,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -58,7 +57,7 @@ public class Server {
                 int fileNameLength = dataInputStream.readInt();
 
                 // If the file exists
-                if(fileNameLength > 0) {
+                if (fileNameLength > 0) {
 
                     byte[] fileNameBytes = new byte[fileNameLength];
                     dataInputStream.readFully(fileNameBytes, 0, fileNameBytes.length);
@@ -66,17 +65,19 @@ public class Server {
                     String fileName = new String(fileNameBytes);
                     int fileContentLength = dataInputStream.readInt();
 
-                    if(fileContentLength > 0) {
+                    if (fileContentLength > 0) {
 
                         byte[] fileContentBytes = new byte[fileContentLength];
                         dataInputStream.readFully(fileContentBytes, 0, fileContentBytes.length);
+
+                        System.out.println(fileName);
 
                         // Panel to hold the picture and file name.
                         JPanel jpFileRow = new JPanel();
                         jpFileRow.setLayout(new BoxLayout(jpFileRow, BoxLayout.X_AXIS));
                         JLabel jlFileName = new JLabel(fileName);
                         jlFileName.setFont(new Font("Arial", Font.BOLD, 20));
-                        jlFileName.setBorder(new EmptyBorder(10,0, 10,0));
+                        jlFileName.setBorder(new EmptyBorder(10, 0, 10, 0));
 
                         // Set the name to be the fileId so you can get the correct file from the panel.
                         jpFileRow.setName((String.valueOf(fileId)));
@@ -88,17 +89,6 @@ public class Server {
                         // Add the new file to the array list which holds all our data.
                         myFiles.add(new MyFile(fileId, fileName, fileContentBytes, getFileExtension(fileName)));
                         // Increment the fileId for the next file to be received.
-
-                        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-
-                        //Sending the filename
-                        dataOutputStream.writeInt(fileNameLength);
-                        byte[] fileNameByte = fileName.getBytes();
-                        dataOutputStream.write(fileNameByte);
-
-//                        //Sending the file
-//                        dataOutputStream.writeInt(fileContentLength);
-//                        dataOutputStream.write(fileContentBytes);
 
                         fileId++;
 

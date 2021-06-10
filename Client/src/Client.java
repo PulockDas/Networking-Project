@@ -19,8 +19,6 @@ public class Client {
     private static int y = 370;
     private static JLabel uploadFiles;
     private static Socket socket;
-    private static DataOutputStream dataOutputStream;
-    private static DataInputStream dataInputStream;
     private static JPanel serverfiles;
 
     public static void main(String[] args) {
@@ -72,17 +70,6 @@ public class Client {
             public void actionPerformed(ActionEvent actionEvent) {
                 serverName = s.getText();
                 portNum = Integer.parseInt(p.getText());
-
-                // Create a socket connection to connect with the server.
-                try {
-                    socket = new Socket(serverName, portNum);
-
-                    // Create an output stream to write to write to the server over the socket connection.
-                    dataOutputStream = new DataOutputStream(socket.getOutputStream());
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
                 System.out.println(serverName);
                 System.out.println(portNum);
@@ -149,12 +136,19 @@ public class Client {
     }
 
     public static ActionListener uploadAction() {
+
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(fileToSend[0] != null) {
                     try {
                         FileInputStream fileInputStream = new FileInputStream(fileToSend[0].getAbsolutePath());
+
+                        // Create a socket connection to connect with the server.
+                        socket = new Socket( serverName, portNum );
+
+                        // Create an output stream to write to write to the server over the socket connection.
+                        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
                         // Get the name of the file you want to send and store it in filename.
                         String fileName = fileToSend[0].getName();
@@ -174,24 +168,8 @@ public class Client {
                         // Send the actual file.
                         dataOutputStream.write(fileBytes);
 
+                        System.out.println("upload deo");
 
-                        //taking the file by input
-                        dataInputStream = new DataInputStream(socket.getInputStream());
-                        int fileNameLength = dataInputStream.readInt();
-
-                        if(fileNameLength > 0) {
-                            byte[] fileNameBytes2 = new byte[fileNameLength];
-                            dataInputStream.readFully(fileNameBytes2, 0, fileNameBytes2.length);
-
-                            JLabel label = new JLabel(new String(fileNameBytes2));
-                            label.setBounds(10, y, 80, 20); y += 20;
-
-                            serverfiles.add(label);
-                            jFrame.validate();
-
-                            System.out.println(new String(fileNameBytes2));
-
-                        }
                     }
                     catch (Exception ex) {
                         ex.printStackTrace();
