@@ -25,6 +25,9 @@ public class DataRecieve_Thread extends Thread{
                 } else if (com.equals("download")) {
                     Download_Maintain download_maintain = new Download_Maintain();
                     download_maintain.maintain();
+                } else if (com.equals("delete")) {
+                    Delete_Maintain delete_maintain = new Delete_Maintain();
+                    delete_maintain.maintain();
                 }
             }
             catch (Exception ex) {

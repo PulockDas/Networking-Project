@@ -2,6 +2,7 @@ import javax.swing.*;
 
 class PopUpDemo extends JPopupMenu {
     JMenuItem anItem;
+    JMenuItem anItem2;
 
     String operation;
 
@@ -16,8 +17,12 @@ class PopUpDemo extends JPopupMenu {
         }
         else{
             anItem = new JMenuItem("Download");
-            add(anItem);
+            anItem2 = new JMenuItem("Delete");
+
+            add(anItem); add(anItem2);
             anItem.addActionListener(Client_Main.downloadAction( operation ));
+
+            anItem2.addActionListener(Client_Main.deleteAction( operation ));
         }
 
     }

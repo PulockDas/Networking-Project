@@ -4,10 +4,19 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Fetch_Thread{
+    public static JPanel mother;
+    public static JLabel newFile;
+
+    public Fetch_Thread () {
+        Client_Main.y = 370;
+    }
+
     public void maintain() {
         try {
 
             Client_Main.allServerFiles.removeAll();
+            Client_Main.jFrame.revalidate();
+            Client_Main.jFrame.repaint();
 
             DataOutputStream dataOutputStream = null;
             dataOutputStream = new DataOutputStream(Client_Main.socket.getOutputStream());
@@ -27,21 +36,22 @@ public class Fetch_Thread{
 
                 String fileName = new String(fileNameBytes);
 
-//                JPanel mother = new JPanel();
-//                mother.setBounds(0, Client_Main.y, 450, 30);
+                mother = new JPanel();
+                mother.setBounds(300, Client_Main.y, 80, 25);
 
                 String s = "Download@"+String.valueOf(i);
                 System.out.println(s);
 
-                JLabel newFile = new JLabel(fileName);
-                newFile.setBounds(300, Client_Main.y, 80, 25); Client_Main.y+= 30;
+                newFile = new JLabel(fileName);
+                newFile.setBounds(300, Client_Main.y, 80, 25);
+                Client_Main.y += 30;
                 System.out.println(Client_Main.y);
 
                 newFile.addMouseListener(new PopClickListener( s ));
 
-//                mother.add(newFile);
+                mother.add(newFile);
 
-                Client_Main.allServerFiles.add(newFile);
+                Client_Main.allServerFiles.add(mother);
 
                 Client_Main.jFrame.validate();
             }

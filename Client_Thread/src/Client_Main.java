@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Client_Main {
 
-    private static String serverName = "";
+    private static String serverName;
     private static int portNum;
     public static JFrame jFrame;
     private static JLabel server;
@@ -16,13 +16,12 @@ public class Client_Main {
     private static JTextField p;
     private static JButton connect;
     public static File[] fileToSend = new File[1];
-    private static String fileName = "";
-    public static int y = 370;
+    public static int y;
     private static JLabel uploadFiles;
     public static Socket socket;
-    public static JPanel serverfiles;
     private static JButton chooseFile;
     public static JPanel allServerFiles;
+    public static JButton seeServerFiles;
 
     public static void main(String[] args) {
 
@@ -96,18 +95,13 @@ public class Client_Main {
 
         host.add(jlFile);
 
-        //See Server Files
-        serverfiles = new JPanel();
-        serverfiles.setBounds(0, 290, 450, 100);
+        seeServerFiles = new JButton("Server Files");
+        seeServerFiles.setBounds(250, 320, 120, 25);
 
-        JButton seeServerFiles = new JButton("Server Files");
-        seeServerFiles.setBounds(300, 320, 80, 25);
-
-        serverfiles.add(seeServerFiles);
-        host.add(serverfiles);
+        host.add(seeServerFiles);
 
         allServerFiles = new JPanel();
-        allServerFiles.setBounds(0, 350, 450, 200);
+        allServerFiles.setBounds(85, 350, 450, 200);
 
         host.add(allServerFiles);
 
@@ -175,6 +169,34 @@ public class Client_Main {
                     dataOutputStream.write(commandByte);
 
                     dataOutputStream.writeInt(fileId);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+    }
+
+    public static ActionListener deleteAction( String op ) {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    String[] words = op.split("@");
+
+                    int fileId = Integer.parseInt(words[1]);
+
+                    DataOutputStream dataOutputStream = new DataOutputStream(Client_Main.socket.getOutputStream());
+
+                    String command = "delete";
+                    byte[] commandByte = command.getBytes();
+                    dataOutputStream.writeInt(commandByte.length);
+                    dataOutputStream.write(commandByte);
+
+                    dataOutputStream.writeInt(fileId);
+
+                    seeServerFiles.doClick();
                 }
                 catch (Exception ex) {
                     ex.printStackTrace();

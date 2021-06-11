@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.DataInputStream;
 
 public class Upload_Maintain {
+
     public void maintain() {
 
             try {
@@ -29,19 +30,7 @@ public class Upload_Maintain {
 
                         System.out.println(fileName);
 
-                        JPanel jpFileRow = new JPanel();
-                        jpFileRow.setLayout(new BoxLayout(jpFileRow, BoxLayout.X_AXIS));
-                        JLabel jlFileName = new JLabel(fileName);
-                        jlFileName.setFont(new Font("Arial", Font.BOLD, 20));
-                        jlFileName.setBorder(new EmptyBorder(10, 0, 10, 0));
-
-                        jpFileRow.setName((String.valueOf(Server_Main.fileId)));
-                        jpFileRow.add(jlFileName);
-
-                        System.out.println(fileName);
-
-                        Server_Main.jPanel.add(jpFileRow);
-                        Server_Main.jFrame.validate();
+                        showServerFile( fileName );
 
                         Server_Main.myFiles.add(new MyFile(Server_Main.fileId, fileName, fileContentBytes, getFileExtension(fileName)));
 
@@ -63,4 +52,19 @@ public class Upload_Maintain {
             return "No extension found.";
         }
     }
+
+    public static void showServerFile( String fileName ) {
+        JPanel jpFileRow = new JPanel();
+        jpFileRow.setLayout(new BoxLayout(jpFileRow, BoxLayout.X_AXIS));
+        JLabel jlFileName = new JLabel(fileName);
+        jlFileName.setFont(new Font("Arial", Font.BOLD, 20));
+        jlFileName.setBorder(new EmptyBorder(10, 0, 10, 0));
+
+        jpFileRow.setName((String.valueOf(Server_Main.fileId)));
+        jpFileRow.add(jlFileName);
+
+        Server_Main.jPanel.add(jpFileRow);
+        Server_Main.jFrame.validate();
+    }
+
 }
