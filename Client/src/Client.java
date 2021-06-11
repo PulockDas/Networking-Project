@@ -71,6 +71,12 @@ public class Client {
                 serverName = s.getText();
                 portNum = Integer.parseInt(p.getText());
 
+//                try {
+//                    serverDownload();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
                 System.out.println(serverName);
                 System.out.println(portNum);
             }
@@ -142,6 +148,9 @@ public class Client {
             public void actionPerformed(ActionEvent e) {
                 if(fileToSend[0] != null) {
                     try {
+
+//                        serverDownload();
+
                         FileInputStream fileInputStream = new FileInputStream(fileToSend[0].getAbsolutePath());
 
                         // Create a socket connection to connect with the server.
@@ -168,8 +177,8 @@ public class Client {
                         // Send the actual file.
                         dataOutputStream.write(fileBytes);
 
-                        System.out.println("upload deo");
-
+                        socket.close();
+                        socket = null;
                     }
                     catch (Exception ex) {
                         ex.printStackTrace();
@@ -178,5 +187,30 @@ public class Client {
                 }
             }
         };
+    }
+
+    public static void serverDownload() throws IOException {
+        socket = new Socket(serverName, portNum);
+        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+
+        int fileCount = dataInputStream.readInt();
+
+        for( int i=0; i<fileCount; i++ ){
+            int fileNameLength = dataInputStream.readInt();
+            byte[] fileNameBytes = new byte[fileNameLength];
+            dataInputStream.readFully(fileNameBytes, 0, fileNameBytes.length);
+
+            String fileName = new String(fileNameBytes);
+
+            JLabel newFile = new JLabel(fileName);
+            serverfiles.setBounds(10, y, 80, 25); y+= 20;
+            serverfiles.add(newFile);
+
+            jFrame.validate();
+        }
+
+        socket.close();
+        socket = null;
+
     }
 }

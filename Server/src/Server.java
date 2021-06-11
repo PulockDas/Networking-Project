@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -50,6 +51,24 @@ public class Server {
         while (true) {
             try {
                 Socket socket = serverSocket.accept();
+
+//                DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+//
+//                int l = myFiles.size();
+//                dataOutputStream.writeInt(l);
+//
+//                for( MyFile myFile: myFiles ){
+//                    String fileName = myFile.getName();
+//                    byte[] fileNameBytes = fileName.getBytes();
+//
+//                    dataOutputStream.writeInt(fileNameBytes.length);
+//                    dataOutputStream.write(fileNameBytes);
+//                }
+//
+//                socket.close();
+//                socket = null;
+//
+//                socket = serverSocket.accept();
 
                 DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
 
