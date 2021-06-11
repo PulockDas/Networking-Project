@@ -131,7 +131,7 @@ public class Client_Main {
             }
         });
 
-        jlFile.addMouseListener(new PopClickListener());
+        jlFile.addMouseListener(new PopClickListener( "Upload" ));
 
         seeServerFiles.addActionListener(new ActionListener() {
             @Override
@@ -151,6 +151,33 @@ public class Client_Main {
 
                     Upload_Thread upload_thread = new Upload_Thread();
                     upload_thread.suru();
+                }
+            }
+        };
+    }
+
+    public static ActionListener downloadAction( String op ) {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+
+                    String[] words = op.split("@");
+
+                    int fileId = Integer.parseInt(words[1]);
+
+                    DataOutputStream dataOutputStream = new DataOutputStream(Client_Main.socket.getOutputStream());
+
+                    String command = "download";
+                    byte[] commandByte = command.getBytes();
+                    dataOutputStream.writeInt(commandByte.length);
+                    dataOutputStream.write(commandByte);
+
+                    dataOutputStream.writeInt(fileId);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         };

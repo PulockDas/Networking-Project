@@ -3,6 +3,11 @@ import java.awt.event.MouseListener;
 
 public class PopClickListener implements MouseListener {
 
+    String operation;
+    public PopClickListener(String s) {
+        operation = s;
+    }
+
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
@@ -31,7 +36,7 @@ public class PopClickListener implements MouseListener {
     }
 
     private void doPop(MouseEvent e) {
-        PopUpDemo menu = new PopUpDemo();
+        PopUpDemo menu = new PopUpDemo( operation );
         menu.show(e.getComponent(), e.getX(), e.getY());
     }
 

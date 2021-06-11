@@ -22,6 +22,9 @@ public class DataRecieve_Thread extends Thread{
                 } else if (com.equals("fetch")) {
                     Fetch_Maintain fetch_maintain = new Fetch_Maintain();
                     fetch_maintain.maintain();
+                } else if (com.equals("download")) {
+                    Download_Maintain download_maintain = new Download_Maintain();
+                    download_maintain.maintain();
                 }
             }
             catch (Exception ex) {

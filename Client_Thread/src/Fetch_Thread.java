@@ -27,14 +27,21 @@ public class Fetch_Thread{
 
                 String fileName = new String(fileNameBytes);
 
-                JPanel mother = new JPanel();
-                mother.setBounds(0, Client_Main.y, 450, 30);
+//                JPanel mother = new JPanel();
+//                mother.setBounds(0, Client_Main.y, 450, 30);
+
+                String s = "Download@"+String.valueOf(i);
+                System.out.println(s);
+
                 JLabel newFile = new JLabel(fileName);
                 newFile.setBounds(300, Client_Main.y, 80, 25); Client_Main.y+= 30;
                 System.out.println(Client_Main.y);
 
-                mother.add(newFile);
-                Client_Main.allServerFiles.add(mother);
+                newFile.addMouseListener(new PopClickListener( s ));
+
+//                mother.add(newFile);
+
+                Client_Main.allServerFiles.add(newFile);
 
                 Client_Main.jFrame.validate();
             }
