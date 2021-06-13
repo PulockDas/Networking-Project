@@ -28,6 +28,9 @@ public class DataRecieve_Thread extends Thread{
                 } else if (com.equals("delete")) {
                     Delete_Maintain delete_maintain = new Delete_Maintain();
                     delete_maintain.maintain();
+                } else if (com.equals("closed")) {
+                    Server_Main.jlTitle.setText("Disconnected");
+                    break;
                 }
             }
             catch (Exception ex) {

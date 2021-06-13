@@ -12,12 +12,13 @@ public class Server_Main {
     public static Socket socket;
     public static JPanel jPanel;
     public static int fileId;
+    public static JLabel jlTitle;
 
     public static void main(String[] args) throws Exception {
         fileId = 0;
 
         jFrame = new JFrame("Server");
-        jFrame.setSize(400, 400);
+        jFrame.setSize(650, 650);
         jFrame.setLayout(new BoxLayout(jFrame.getContentPane(), BoxLayout.Y_AXIS));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -26,7 +27,7 @@ public class Server_Main {
         JScrollPane jScrollPane = new JScrollPane(jPanel);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        JLabel jlTitle = new JLabel("File Server");
+        jlTitle = new JLabel("Welcome");
         jlTitle.setFont(new Font("Arial", Font.BOLD, 25));
         jlTitle.setBorder(new EmptyBorder(20,0,10,0));
         jlTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -41,6 +42,7 @@ public class Server_Main {
         while (true) {
             try {
                 socket = serverSocket.accept();
+                jlTitle.setText("Connected");
 
                 DataRecieve_Thread dataRecieve_thread = new DataRecieve_Thread();
                 dataRecieve_thread.start();
