@@ -15,12 +15,19 @@ public class Download_Maintain {
 
             int fileId = dataInputStream.readInt();
 
-            for (MyFile myFile : Server_Main.myFiles) {
-                if (myFile.getId() == fileId) {
-                    JFrame jfPreview = createFrame(myFile.getName(), myFile.getData(), myFile.getFileExtension());
-                    jfPreview.setVisible(true);
-                }
+            if(Server_Main.myFiles.size() > fileId){
+
+                MyFile myFile = Server_Main.myFiles.get(fileId);
+                JFrame jfPreview = createFrame(myFile.getName(), myFile.getData(), myFile.getFileExtension());
+                jfPreview.setVisible(true);
             }
+
+//            for (MyFile myFile : Server_Main.myFiles) {
+//                if (myFile.getId() == fileId) {
+//                    JFrame jfPreview = createFrame(myFile.getName(), myFile.getData(), myFile.getFileExtension());
+//                    jfPreview.setVisible(true);
+//                }
+//            }
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -70,7 +77,7 @@ public class Download_Maintain {
         jbYes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File fileToDownload = new File(fileName);
+                File fileToDownload = new File("../Client_Thread/" + fileName);
                 try {
                     FileOutputStream fileOutputStream = new FileOutputStream(fileToDownload);
                     fileOutputStream.write(fileData);
