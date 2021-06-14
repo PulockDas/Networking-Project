@@ -39,7 +39,7 @@ public class Fetch_Thread{
                 mother = new JPanel();
                 mother.setBounds(300, Client_Main.y, 80, 25);
 
-                String s = "Download@"+String.valueOf(i);
+                String s = "Download/Upload@"+String.valueOf(i);
                 System.out.println(s);
 
                 newFile = new JLabel(fileName);
@@ -47,7 +47,7 @@ public class Fetch_Thread{
                 Client_Main.y += 30;
                 System.out.println(Client_Main.y);
 
-                newFile.addMouseListener(new PopClickListener( s ));
+                newFile.addMouseListener(new PopClickListener( s, fileName ));
 
                 mother.add(newFile);
 

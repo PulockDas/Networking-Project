@@ -1,5 +1,4 @@
 import java.io.DataInputStream;
-import java.io.IOException;
 
 public class DataRecieve_Thread extends Thread{
     @Override

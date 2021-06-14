@@ -15,7 +15,6 @@ public class Fetch_Maintain {
 
                 dataOutputStream.writeInt(fileNameBytes.length);
                 dataOutputStream.write(fileNameBytes);
-//                dataOutputStream.writeInt(myFile.getId());
             }
         }
         catch (Exception ex){

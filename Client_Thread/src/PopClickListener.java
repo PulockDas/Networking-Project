@@ -3,9 +3,16 @@ import java.awt.event.MouseListener;
 
 public class PopClickListener implements MouseListener {
 
-    String operation;
+    String operation = null;
+    String fileName = null;
+
     public PopClickListener(String s) {
         operation = s;
+    }
+
+    public PopClickListener(String s, String file) {
+        operation = s;
+        fileName = file;
     }
 
     @Override
@@ -36,7 +43,7 @@ public class PopClickListener implements MouseListener {
     }
 
     private void doPop(MouseEvent e) {
-        PopUpDemo menu = new PopUpDemo( operation );
+        PopUpDemo menu = new PopUpDemo( operation, fileName );
         menu.show(e.getComponent(), e.getX(), e.getY());
     }
 

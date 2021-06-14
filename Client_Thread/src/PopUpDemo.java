@@ -6,7 +6,7 @@ class PopUpDemo extends JPopupMenu {
 
     String operation;
 
-    public PopUpDemo( String op ) {
+    public PopUpDemo( String op, String fileName ) {
 
         operation = op;
 
@@ -20,7 +20,7 @@ class PopUpDemo extends JPopupMenu {
             anItem2 = new JMenuItem("Delete");
 
             add(anItem); add(anItem2);
-            anItem.addActionListener(Client_Main.downloadAction( operation ));
+            anItem.addActionListener(Client_Main.downloadAction( operation, fileName ));
 
             anItem2.addActionListener(Client_Main.deleteAction( operation ));
         }

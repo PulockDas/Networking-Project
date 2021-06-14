@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -23,6 +25,7 @@ public class Client_Main {
     private static JButton chooseFile;
     public static JPanel allServerFiles;
     public static JButton seeServerFiles;
+    public static int downloadCount = 0;
 
     public static void main(String[] args) {
 
@@ -169,7 +172,7 @@ public class Client_Main {
         };
     }
 
-    public static ActionListener downloadAction( String op ) {
+    public static ActionListener downloadAction( String op, String fileName ) {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -180,7 +183,8 @@ public class Client_Main {
 
                     int fileId = Integer.parseInt(words[1]);
 
-                    DataOutputStream dataOutputStream = new DataOutputStream(Client_Main.socket.getOutputStream());
+                    DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                    DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
 
                     String command = "download";
                     byte[] commandByte = command.getBytes();
@@ -188,6 +192,27 @@ public class Client_Main {
                     dataOutputStream.write(commandByte);
 
                     dataOutputStream.writeInt(fileId);
+
+
+                    int fileContentLength = dataInputStream.readInt();
+                    if(fileContentLength > 0){
+                        byte[] fileContentByte = new byte[fileContentLength];
+
+                        dataInputStream.readFully(fileContentByte, 0, fileContentByte.length);
+
+                        if(fileContentByte != null){
+                            int extlength = dataInputStream.readInt();
+                            byte[] extByte = new byte[extlength];
+                            dataInputStream.readFully(extByte, 0, extByte.length);
+
+                            String s = new String(extByte);
+
+                            JFrame jfPreview = Downloader_Preview.createFrame(fileName, fileContentByte, s);
+                            jfPreview.setVisible(true);
+                        }
+                    }
+
+
                 }
                 catch (Exception ex) {
                     ex.printStackTrace();
