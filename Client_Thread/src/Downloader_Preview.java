@@ -15,6 +15,9 @@ public class Downloader_Preview {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
 
+        JScrollPane jScrollPane = new JScrollPane(jPanel);
+        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
         JLabel jlTitle = new JLabel("File Downloader");
         jlTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         jlTitle.setFont(new Font("Arial", Font.BOLD, 25));
@@ -79,7 +82,7 @@ public class Downloader_Preview {
         jPanel.add(jlFileContent);
         jPanel.add(jpButtons);
 
-        jFrame.add(jPanel);
+        jFrame.add(jScrollPane);
 
         return jFrame;
     }
