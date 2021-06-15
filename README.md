@@ -14,7 +14,8 @@ Input the IP of server and the port number and when you click connect the client
 ## Download
 - To download open the client programme and click on the `Server Files` icon.
 - The list of files in the server will appear on the client programme
-- Right Click on the desired file and choose `download` and your file will be downloaded
+- Right Click on the desired file and choose `download`
+- When a window pops click `yes` and your file will be downloaded.
 ## Delete
 - If you want to delete a file right click on the chosen file and choose the `delete` option. Your file will be removed from the server.
 
