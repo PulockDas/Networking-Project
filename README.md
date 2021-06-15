@@ -26,7 +26,9 @@ In order to run the file server system you will require
 - JDK 8 or Higher
 
 ---
-For any inquiry please contact
-1. [Pulock](pulockkamol50@gmail.com)
-2. [Ohee](sfiohee@gmail.com)
+# Presented By
+1. [Pulock Das Komol (2017831046)](pulockkamol50@gmail.com)
+2. [Sefat Ibne Kamal (2017831012)](sfiohee@gmail.com)
+
+**Department of Software Engineering, [Shahjalal University of Science and Technology](https://www.sust.edu/), Sylhet, Bangladesh**
 
